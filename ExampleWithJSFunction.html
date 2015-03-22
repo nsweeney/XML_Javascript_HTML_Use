@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script>
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.open("GET","cd_catalog.xml",false);
+xmlhttp.send();
+xmlDoc=xmlhttp.responseXML; 
+
+x=xmlDoc.getElementsByTagName("CD");
+i=0;
+
+function displayCD()
+{
+artist=(x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue);
+title=(x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue);
+year=(x[i].getElementsByTagName("YEAR")[0].childNodes[0].nodeValue);
+txt="Artist: " + artist + "<br>Title: " + title + "<br>Year: "+ year;
+document.getElementById("showCD").innerHTML=txt;
+}
+
+function next()
+{
+if (i<x.length-1)
+  {
+  i++;
+  displayCD();
+  }
+}
+
+function previous()
+{
+if (i>0)
+  {
+  i--;
+  displayCD();
+  }
+}
+</script>
+</head>
+<body onload="displayCD()">
+
+<div id='showCD'></div><br>
+<input type="button" onclick="previous()" value="<<" />
+<input type="button" onclick="next()" value=">>" />
+
+</body>
+</html>
